@@ -1,10 +1,10 @@
 
 ```cpp
 
-#include <LiquidCrystal_I2C.h>
-#include <Servo.h>
+#include <LiquidCrystal_I2C.h> //Import library LCD I2C
+#include <Servo.h> //Import library untuk kontrol motor servo
 
-// --- Pin Assignment ---
+// --- Deklarassi pin ---
 #define BUZZER    3
 #define LEDMERAH  4
 #define LEDHIJAU  5
