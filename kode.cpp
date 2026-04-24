@@ -81,16 +81,14 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(BTN_RESET), ISR_Reset, FALLING);
 
   // Inisialisasi LCD I2C
-  lcd.init(); // Menginisialisasi LCD agar siap digunakan (memulai komunikasi dengan modul LCD)
-  lcd.backlight(); // Menyalakan lampu backlight pada LCD supaya layar terlihat terang
-  lcd.clear(); // Menghapus semua tampilan sebelumnya di LCD (layar jadi kosong)
-  lcd.setCursor(0, 0); // Mengatur posisi kursor ke kolom 0, baris 0 (pojok kiri atas)
-  lcd.print("PEMADAM API");  // Menampilkan teks "PEMADAM API" di posisi kursor saat ini
-  lcd.setCursor(0, 1); // Memindahkan kursor ke kolom 0, baris 1 (baris kedua)
-  lcd.print("OTOMATIS v2.0"); // Menampilkan teks "OTOMATIS v2.0" di baris kedua LCD
+  lcd.init();
+  lcd.backlight();
+  lcd.clear();
+  lcd.setCursor(0, 0); lcd.print("PEMADAM API");
+  lcd.setCursor(0, 1); lcd.print("OTOMATIS v2.0");
 
-  matikanSistem(); // Memanggil fungsi untuk mematikan sistem (misalnya mematikan relay, pompa, buzzer, dll)
-  delay(2000); // Memberi jeda selama 2000 milidetik (2 detik) sebelum program lanjut
+  matikanSistem();
+  delay(2000);
 }
 
 // LOOP — Perulangan utama sistem
@@ -143,12 +141,12 @@ void loop() {
       delay(200);
     }
 
-    matikanSistem();
-    Serial.println("  Pemadaman selesai.");
-    lcd.clear();
-    lcd.setCursor(0,0); lcd.print("API PADAM");
-    lcd.setCursor(0,1); lcd.print("Sistem normal");
-    delay(3000);
+    matikanSistem();  // Matikan semua sistem (relay, buzzer, LED, servo kembali ke posisi awal)
+    Serial.println("  Pemadaman selesai.");  // Tampilkan pesan di Serial Monitor bahwa proses pemadaman sudah selesai
+    lcd.clear();    // Bersihkan layar LCD agar tidak ada tampilan sebelumnya
+    lcd.setCursor(0,0); lcd.print("API PADAM");  // Tampilkan pesan bahwa api sudah berhasil dipadamkan
+    lcd.setCursor(0,1); lcd.print("Sistem normal");  // Tampilkan bahwa sistem kembali ke kondisi normal
+    delay(3000);  // Beri jeda 3 detik agar pengguna bisa membaca pesan di LCD
 
   } else if (ldr < WASPADA) {
     // === LEVEL 2: WASPADA ===
