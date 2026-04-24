@@ -96,17 +96,17 @@ void setup() {
 // LOOP — Perulangan utama sistem
 void loop() {
 
-  // Cek flag interrupt reset
+  // Mengecek apakah tombol reset manual ditekan melalui interrupt
   if (resetFlag) {
-    resetFlag = false;
+    resetFlag = false; // Mengembalikan flag reset agar tidak terus aktif
     matikanSistem();   // Mematikan semua sistem (relay OFF, buzzer mati, LED normal, servo ke posisi awal)
     Serial.print("["); Serial.print(millis()/1000);   // Menampilkan waktu (detik sejak Arduino menyala) dan pesan reset di Serial Monitor
-    Serial.println("s] INTERRUPT: Reset manual");
-    lcd.clear();  // Membersihkan tampilan LCD
+    Serial.println("s] INTERRUPT: Reset manual");  // Menampilkan keterangan bahwa reset manual terjadi
+    lcd.clear();  // Membersihkan tampilan LCD  // Membersihkan tampilan LCD
     lcd.setCursor(0,0); lcd.print("RESET MANUAL");  // Menampilkan pesan reset di baris pertama LCD
-    lcd.setCursor(0,1); lcd.print("Sistem normal");
-    delay(2000);
-    return;
+    lcd.setCursor(0,1); lcd.print("Sistem normal");   // Mengatur kursor LCD pada kolom 0 baris 1 dan Menampilkan bahwa sistem kembali normal
+    delay(2000);   // Memberi jeda 2 detik agar pesan terbaca
+    return;   // Menghentikan loop saat ini dan kembali ke awal loop berikutnya
   }
 
   // Baca ADC dari sensor LDR
