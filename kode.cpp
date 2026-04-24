@@ -99,11 +99,11 @@ void loop() {
   // Cek flag interrupt reset
   if (resetFlag) {
     resetFlag = false;
-    matikanSistem();
-    Serial.print("["); Serial.print(millis()/1000);
+    matikanSistem();   // Mematikan semua sistem (relay OFF, buzzer mati, LED normal, servo ke posisi awal)
+    Serial.print("["); Serial.print(millis()/1000);   // Menampilkan waktu (detik sejak Arduino menyala) dan pesan reset di Serial Monitor
     Serial.println("s] INTERRUPT: Reset manual");
-    lcd.clear();
-    lcd.setCursor(0,0); lcd.print("RESET MANUAL");
+    lcd.clear();  // Membersihkan tampilan LCD
+    lcd.setCursor(0,0); lcd.print("RESET MANUAL");  // Menampilkan pesan reset di baris pertama LCD
     lcd.setCursor(0,1); lcd.print("Sistem normal");
     delay(2000);
     return;
