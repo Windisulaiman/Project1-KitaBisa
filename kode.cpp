@@ -143,12 +143,12 @@ void loop() {
       delay(200);
     }
 
-    matikanSistem();
-    Serial.println("  Pemadaman selesai.");
-    lcd.clear();
-    lcd.setCursor(0,0); lcd.print("API PADAM");
-    lcd.setCursor(0,1); lcd.print("Sistem normal");
-    delay(3000);
+    matikanSistem();  // Matikan semua sistem (relay, buzzer, LED, servo kembali ke posisi awal)
+    Serial.println("  Pemadaman selesai.");  // Tampilkan pesan di Serial Monitor bahwa proses pemadaman sudah selesai
+    lcd.clear();  // Bersihkan layar LCD agar tidak ada tampilan sebelumnya
+    lcd.setCursor(0,0); lcd.print("API PADAM");  // Tampilkan pesan bahwa api sudah berhasil dipadamkan
+    lcd.setCursor(0,1); lcd.print("Sistem normal");  // Tampilkan bahwa sistem kembali ke kondisi normal
+    delay(3000);  // Beri jeda 3 detik agar pengguna bisa membaca pesan di LCD
 
   } else if (ldr < WASPADA) {
     // === LEVEL 2: WASPADA ===
