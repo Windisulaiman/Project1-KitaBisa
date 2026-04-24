@@ -65,17 +65,17 @@ void servoSweep(int maxAngle) {
 
 // SETUP
 void setup() {
-  Serial.begin(9600);              // UART: buka komunikasi serial
-  Serial.println("=== Sistem Pemadam Api v2.0 ===");
+  Serial.begin(9600); // Memulai komunikasi serial dengan baud rate 9600
+  Serial.println("=== Sistem Pemadam Api v2.0 ==="); // Menampilkan teks awal di Serial Monitor
 
-  pinMode(LEDMERAH,  OUTPUT);
-  pinMode(LEDHIJAU,  OUTPUT);
-  pinMode(RELAY,     OUTPUT);
-  pinMode(BUZZER,    OUTPUT);
-  pinMode(BTN_RESET, INPUT_PULLUP); // pullup internal, aktif LOW
+  pinMode(LEDMERAH,  OUTPUT); // Mengatur pin LED merah sebagai output
+  pinMode(LEDHIJAU,  OUTPUT); // Mengatur pin LED hijau sebagai output
+  pinMode(RELAY,     OUTPUT); // Mengatur pin relay (pompa) sebagai output
+  pinMode(BUZZER,    OUTPUT); // Mengatur pin buzzer sebagai output
+  pinMode(BTN_RESET, INPUT_PULLUP); // Mengatur tombol reset sebagai input dengan pull-up internal, Default HIGH, ditekan jadi LOW
 
   servo.attach(SERVOPIN);  // inisialisasi PWM servo
-  servo.write(0);
+  servo.write(0); // Mengatur posisi awal servo ke 0 derajat (posisi awal)
 
   // Daftarkan interrupt eksternal pin 2
   attachInterrupt(digitalPinToInterrupt(BTN_RESET), ISR_Reset, FALLING);
