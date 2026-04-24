@@ -1,7 +1,7 @@
 # Project1-KitaBisa
 Project1 Sistem Mikrokontroler
 
-```
+```cpp
 
 #include <LiquidCrystal_I2C.h>
 #include <Servo.h>
