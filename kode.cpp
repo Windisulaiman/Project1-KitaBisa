@@ -31,20 +31,21 @@ void ISR_Reset() {
 
 // Fungsi bantu: matikan semua sistem pemadaman
 void matikanSistem() {
-  digitalWrite(RELAY,    LOW);
-  digitalWrite(LEDMERAH, LOW);
+  digitalWrite(RELAY,    LOW); //Mematikan relay 
+  digitalWrite(LEDMERAH, LOW); 
   digitalWrite(LEDHIJAU, HIGH);
-  noTone(BUZZER);
+  noTone(BUZZER); // menghentikan bunyi buzzer
   servo.write(0);
 }
 
 // Fungsi bantu: kedipkan LED merah (untuk level kritis)
 void kedipLedMerah(int kali) {
   for (int i = 0; i < kali; i++) {
+    //perulangan kedip lampu
     digitalWrite(LEDMERAH, HIGH);
-    delay(150);
+    delay(150); // durasi nyala
     digitalWrite(LEDMERAH, LOW);
-    delay(150);
+    delay(150); // durasi mati
   }
 }
 
@@ -53,12 +54,12 @@ void servoSweep(int maxAngle) {
   // Sweep dari 0 ke maxAngle
   for (int pos = 0; pos <= maxAngle; pos += 5) {
     servo.write(pos);   // PWM: kontrol sudut servo
-    delay(40);
+    delay(40);  //durasi gerak servo
   }
   // Sweep balik ke 0
   for (int pos = maxAngle; pos >= 0; pos -= 5) {
     if (resetFlag) return;
-    servo.write(pos);
+    servo.write(pos); // durasi gerak servo 
     delay(40);
   }
 }
@@ -170,11 +171,11 @@ void loop() {
     Serial.println("AMAN");
 
     lcd.clear();
-    lcd.setCursor(0,0); lcd.print("STATUS: AMAN");
-    lcd.setCursor(0,1); lcd.print("LDR:"); lcd.print(ldr);
+    lcd.setCursor(0,0); lcd.print("STATUS: AMAN"); // Pindah ke baris 1 kolom 0, tampilkan "STATUS: AMAN"
+    lcd.setCursor(0,1); lcd.print("LDR:"); lcd.print(ldr);  // Pindah ke baris 2 kolom 0, tampilkan nilai LDR saat ini
 
-    matikanSistem();
-    delay(2000);
+    matikanSistem(); //memastikan semua aktuator mati (relay, buzzer, servo, LED)
+    delay(2000); //waktu tunggu sebelum sensor membaca lagi
   }
 
   delay(500);
