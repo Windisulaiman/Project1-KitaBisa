@@ -37,7 +37,14 @@ void matikanSistem() {
   noTone(BUZZER); // menghentikan bunyi buzzer
   servo.write(0);
 }
-
+//kondisi lampu ketika dilakukan reset
+void resetSistem() {
+  digitalWrite(RELAY,    LOW);
+  digitalWrite(LEDMERAH, LOW);
+  digitalWrite(LEDHIJAU, LOW);   // Semua LED OFF dulu
+  noTone(BUZZER);
+  servo.write(0);
+}
 // Fungsi bantu: kedipkan LED merah (untuk level kritis)
 void kedipLedMerah(int kali) {
   for (int i = 0; i < kali; i++) {
@@ -100,7 +107,7 @@ void loop() {
   // Mengecek apakah tombol reset manual ditekan melalui interrupt
   if (resetFlag) {
     resetFlag = false; // Mengembalikan flag reset agar tidak terus aktif
-    matikanSistem();   // Mematikan semua sistem (relay OFF, buzzer mati, LED normal, servo ke posisi awal)
+    resetSistem();   // Mematikan semua sistem (relay OFF, buzzer mati, LED normal, servo ke posisi awal)
     Serial.print("["); Serial.print(millis()/1000);   // Menampilkan waktu (detik sejak Arduino menyala) dan pesan reset di Serial Monitor
     Serial.println("s] INTERRUPT: Reset manual");  // Menampilkan keterangan bahwa reset manual terjadi
     lcd.clear();  // Membersihkan tampilan LCD  // Membersihkan tampilan LCD
@@ -121,11 +128,12 @@ void loop() {
   if (ldr < BAHAYA) {
     // === LEVEL 1: BAHAYA KRITIS ===
     Serial.println("BAHAYA KRITIS!");
-
+    
     lcd.clear();
     lcd.setCursor(0,0); lcd.print("!! BAHAYA !!");
     lcd.setCursor(0,1); lcd.print("LDR:"); lcd.print(ldr);
-
+    
+    digitalWrite(LEDHIJAU, LOW);   // ketika cahaya naik maka led hijau akan mati 
     digitalWrite(RELAY, HIGH);     // pompa ON
     tone(BUZZER, 1500);            // PWM audio: frekuensi tinggi
     kedipLedMerah(3);              // LED kedip cepat (perulangan)
